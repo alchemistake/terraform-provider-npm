@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Rizbe/go-npm"
+	"github.com/alchemistake/go-npm"
 	"github.com/hashicorp/terraform/helper/schema"
 )
 

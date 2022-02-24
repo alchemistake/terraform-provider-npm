@@ -3,22 +3,17 @@ package npm
 import (
 	"github.com/hashicorp/terraform/helper/schema"
   "github.com/hashicorp/terraform/terraform"
-  "github.com/Rizbe/go-npm"
+  "github.com/alchemistake/go-npm"
 )
 
 //Provider Name
 func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
-			"username": {
+			"token": {
 				Type:        schema.TypeString,
 				Required:    true,
-				DefaultFunc: schema.EnvDefaultFunc("NPM_USRNAME", nil),
-			},
-			"password": {
-				Type:        schema.TypeString,
-				Required:    true,
-				DefaultFunc: schema.EnvDefaultFunc("NPM_PASSWORD", nil),
+				DefaultFunc: schema.EnvDefaultFunc("NPM_TOKEN", nil),
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
@@ -29,6 +24,6 @@ func Provider() terraform.ResourceProvider {
 }
 
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
-client := npm.NewBasicAuthClient(d.Get("username").(string), d.Get("password").(string))
+client := npm.NewTokenClient(d.Get("token").(string))
 	return client, nil
 }
